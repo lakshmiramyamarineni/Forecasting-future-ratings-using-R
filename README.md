@@ -1,2 +1,3 @@
 # Forecasting-future-ratings-using-R
 Forecasting future ratings of a cereal using statistical modelling in R
+In this study, we have employed modeling techniques to assess the ratings of the different cereals. It assists the company in obtaining information such as which cereals consumers prefer. In today's environment, one of the most important jobs is to preserve good health, and one method to do so is to keep excellent eating habits. As a result, clients are quite picky about what they eat. A customer's rating is influenced by the substance of any products in it, as well as the flavor. As a result of this, information on these cereals and their ratings have been closely monitored to formulate the appropriate formula while manufacturing a cereal. 
