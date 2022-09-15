@@ -1,0 +1,124 @@
+---
+title: "Stats Final Project"
+author: "Group Project"
+date: "`r Sys.Date()`"
+output: openintro::lab_report
+---
+
+```{r load-packages, message=FALSE}
+library(tidyverse)
+library(openintro)
+library(dplyr)
+```
+
+# Reading the data
+
+```{r}
+
+# Reading the data
+d = read.csv("BreakfastCereals.csv")
+view(d)
+sum(is.na(d))
+dim(d)
+
+```
+# Finding NA values in each column
+```{r}
+sugars=d$sugars
+potass=d$potass
+carbs=d$carbs
+calories=d$calories
+rating=d$rating
+fiber=d$fiber
+protein = d$protein
+
+
+sum(is.na(d$sugars))
+sum(is.na(d$potass))
+sum(is.na(d$carbo))
+sum(is.na(calories))
+
+
+which(is.na(d$sugars))
+which(is.na(d$potass))
+which(is.na(d$carbo))
+which(is.na(calories))
+```
+# Removing NA's from the dataset
+```{r}d = d[-c(5,21,58),]
+sum(is.na(d$sugars))
+sum(is.na(d$potass))
+sum(is.na(d$carbo)) 
+sum(is.na(calories))
+```
+
+
+# Visualizing the data
+```{r}
+plot(d$sugars, d$rating)
+plot(d$calories, d$rating)
+plot(d$fiber, d$rating)
+plot(d$protein, d$rating)
+plot(calories, rating)
+
+ggplot(data = d, aes(x=d$sugars,y=d$rating)) + geom_line()
+ggplot(data = d, aes(x=d$calories,y=d$rating)) + geom_line()
+ggplot(data = d, aes(x=d$fiber,y=d$rating)) + geom_line()
+ggplot(data = d, aes(x=d$protein,y=d$rating)) + geom_line()
+ggplot(data = d, aes(x=calories,y=rating)) + geom_line()
+
+```
+
+# Correlation Matrix
+```{r}
+
+str(d)
+cor.matrix = cor(cbind(rating, sugars, calories , fiber , protein,calories))
+rownames(cor.matrix) = c("rating", "sugar", "calories", "fiber", "protein","calories")
+colnames(cor.matrix) =c("rating", "sugar", "calories", "fiber", "protein","calories")
+cor.matrix
+
+```
+
+# Multiple Regression Model
+```{r}
+
+reg <- lm(rating~ sugars + calories+fiber+protein, data=d)
+reg
+summary(reg)
+
+```
+
+#Using Multiple Regression Function to predict Ratings for newly launched dataset
+```{r}
+new.sugars = 6
+new.calories = 70
+new.fiber = 10
+new.protein = 4
+reg$coefficients
+b0 = 62.72041
+b1 =-1.91883
+b2=-0.15608
+b3=2.17788
+b4=1.88713
+rating.new = b0 + b1 * new.sugars+b2*new.calories +b3*new.fiber + b4*new.protein
+rating.new
+```
+
+
+# ANOVA Test
+```{r}
+options(scipen = 999)
+results = aov(rating ~ mfr, d)
+summary(results)
+
+
+```
+
+# Chi Test
+```{r}
+a = table(d$mfr, d$fat)
+chisq.test(a)
+
+```
+
